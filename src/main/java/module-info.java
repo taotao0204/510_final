@@ -6,6 +6,7 @@ module com.taoliu.final510 {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires org.hibernate.orm.core;
 
   /*  opens com.taoliu.final510 to javafx.fxml;
     exports com.taoliu.final510;*/

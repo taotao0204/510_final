@@ -1,46 +1,58 @@
 package com.taoliu.final510.application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 
 public class Main extends Application {
 
-	public static Stage stage; // set global stage object!!!
+	private double xOffset = 0;
+	private double yOffset = 0;
 
 	@Override
-	public void start(Stage primaryStage) {
-	
-		//primaryStage.hide();
-
-		try {
-			stage = primaryStage;
-
-			URL url = new URL("file:" + getClass().getResource("").getPath() + "../views/LoginView.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(url);
-			AnchorPane root =  fxmlLoader.load();
-			//AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
-			Scene scene = new Scene(root);
-
-//			scene.getStylesheets().add("styles.css");
-
-			URL cssURL = new URL("file:" + getClass().getResource("").getPath() + "../views/styles.css");
-			scene.getStylesheets().add(cssURL.toExternalForm());
-			stage.setTitle("Login View");
-			stage.setScene(scene);
-			stage.show();
-
-		} catch (Exception e) {
-			System.out.println("Error occured while inflating view: " + e);
-		}
+	public void start(Stage stage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+		root.setOnMousePressed((MouseEvent event) -> {
+			xOffset = event.getSceneX();
+			yOffset = event.getSceneY();
+		});
+		root.setOnMouseDragged((MouseEvent event) -> {
+			stage.setX(event.getScreenX() - xOffset);
+			stage.setY(event.getScreenY() - yOffset);
+		});
+		Scene scene = new Scene(root);
+		stage.setTitle("Inventory:: Version 1.0");
+		stage.getIcons().add(new Image("/images/logo.png"));
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public static void main(String[] args) {
 
-		launch(args);
-	}
+//		if (HibernateUtil.setSessionFactory()) {
+//			launch(args);
+//			HibernateUtil.getSessionFactory().close();
+//		} else {
+			Platform.runLater(() -> {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("An error has occured!");
+				alert.setHeaderText("Database Connection Error!");
+				alert.setContentText("Please contact the developer");
+				alert.showAndWait();
+				Platform.exit();
+			});
+		}
+
+	//}
 }

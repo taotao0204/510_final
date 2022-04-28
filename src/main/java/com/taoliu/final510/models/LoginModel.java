@@ -1,11 +1,11 @@
 package com.taoliu.final510.models;
 
-
 import com.taoliu.final510.dao.DBConnect;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class LoginModel extends DBConnect {
  
@@ -27,7 +27,7 @@ public class LoginModel extends DBConnect {
 		
 	public Boolean getCredentials(String username, String password){
            
-        	String query = "SELECT * FROM jpapa_users WHERE uname = ? and passwd = ?;";
+        	String query = "SELECT * FROM liutao_users WHERE username = ? and password = ?;";
             try(PreparedStatement stmt = connection.prepareStatement(query)) {
                stmt.setString(1, username);
                stmt.setString(2, password);

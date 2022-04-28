@@ -57,28 +57,26 @@ public class LoginController {
 	}
 
 	public void checkCredentials(String username, String password) {
-		Boolean isValid =  true;
-				//model.getCredentials(username, password);
+		Boolean isValid = model.getCredentials(username, password);
 		if (!isValid) {
 			lblError.setText("User does not exist!");
 			return;
 		}
 		try {
 			AnchorPane root;
-			//if (model.isAdmin() && isValid)
-			if (isValid) {
+			if (model.isAdmin() && isValid) {
 				// If user is admin, inflate admin view
 				URL url = new URL("file:" + getClass().getResource("").getPath() + "../views/AdminView.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(url);
-				 root =  fxmlLoader.load();
-			//	root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/AdminView.fxml"));
+				root = fxmlLoader.load();
+//				root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/AdminView.fxml"));
 				Main.stage.setTitle("Admin View");
 
 			} else {
 				// If user is customer, inflate customer view
 				URL url = new URL("file:" + getClass().getResource("").getPath() + "../views/ClientView.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(url);
-				root =  fxmlLoader.load();
+				root = fxmlLoader.load();
 				//root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/ClientView.fxml"));
 				// ***Set user ID acquired from db****
 				int user_id = model.getId();  

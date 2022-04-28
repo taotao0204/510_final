@@ -1,7 +1,5 @@
 package com.taoliu.final510.models;
 
-
-
 import com.taoliu.final510.dao.DBConnect;
 
 import java.sql.PreparedStatement;
@@ -11,7 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientModel extends DBConnect {
+
+public class ClientModel extends DBConnect implements User<Bank>{
 
 	private int cid;
 	private int tid;
@@ -20,12 +19,20 @@ public class ClientModel extends DBConnect {
 	// Declare DB objects
 	DBConnect conn = null;
 	Statement stmt = null;
+	
+	Bank custBank; //set up Bank object
 
 	public ClientModel() {
 
 		conn = new DBConnect();
+		
+		//simulate bank data affliation of client
+		custBank = new Bank();
+		custBank.setBankId(100);
+		custBank.setBankName("Bank of IIT");
+		custBank.setBankAddress("10 W 35th St, Chicago, IL 60616");
 	}
-
+ 
 	/* getters & setters */
 	
 	public int getCid() {
@@ -95,4 +102,9 @@ public class ClientModel extends DBConnect {
 		return accounts; // return arraylist
 	}
 
+	@Override
+	public Bank getClientInfo() {
+		// TODO Auto-generated method stub
+		return custBank;
+	}
 }

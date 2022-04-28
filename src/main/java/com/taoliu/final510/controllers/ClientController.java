@@ -1,5 +1,11 @@
 package com.taoliu.final510.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicLong;
+
 
 import com.taoliu.final510.application.Main;
 import com.taoliu.final510.models.ClientModel;
@@ -14,13 +20,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicLong;
-
-
+ 
 public class ClientController implements Initializable {
 	
 	static int userid;
@@ -65,6 +65,8 @@ public class ClientController implements Initializable {
 
 		tblAccounts.getItems().setAll(cm.getAccounts(userid)); // load table data from ClientModel List
 		tblAccounts.setVisible(true); // set tableview to visible if not
+		
+		System.out.println(cm.getClientInfo());
 
 	}
 
@@ -73,11 +75,7 @@ public class ClientController implements Initializable {
 	public void logout() {
 		// System.exit(0);
 		try {
-
-			URL url = new URL("file:" + getClass().getResource("").getPath() + "../views/LoginView.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(url);
-			AnchorPane root =  fxmlLoader.load();
-//			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/styles.css").toExternalForm());
 			Main.stage.setScene(scene);

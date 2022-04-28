@@ -1,13 +1,14 @@
 package com.taoliu.final510.controllers;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 
+
+import com.taoliu.final510.application.DynamicTable;
 import com.taoliu.final510.dao.DBConnect;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class AdminController {
 
@@ -32,6 +33,9 @@ public class AdminController {
 
 	public void viewAccounts() {
 
+		DynamicTable d = new DynamicTable();
+		// call method from DynamicTable class and pass some arbitrary query string
+		d.buildData("Select tid,balance from jpapa_accounts");
 	}
 
 	public void updateRec() {
